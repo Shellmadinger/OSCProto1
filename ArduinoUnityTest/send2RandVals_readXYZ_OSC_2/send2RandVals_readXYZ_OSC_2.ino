@@ -5,13 +5,13 @@
 //OLED setup
 U8G2_SH1106_128X64_NONAME_F_HW_I2C oled(U8G2_R0, /* reset=*/U8X8_PIN_NONE);
 // WiFi stuff change it to whatever matches your network
-const char* ssid = "Firaas's Galaxy S10";
-const char* pwd = "ylvv8273";
+const char* ssid = "Khan_2.4G";
+const char* pwd = "9053387336";
 
 
 // for ArduinoOSC
 ///IP address of your computer
-const char* sendIPaddress = "192.168.168.109";
+const char* sendIPaddress = "192.168.1.132";
 //this is message address that is used by unity 
 const char* arduinoMessageTag = "/arduino2";
 //port specified in the OSC in variable in Unity
@@ -46,20 +46,20 @@ yDirection = unityMessage.arg<float>(1);
 
 if (yDirection>0){
   analogWrite(motorOnePwn, 255);
-  digitalWrite(motorOneForward, HIGH);
-  digitalWrite(motorOneBackwards, LOW);
-  analogWrite(motorTwoPwn, 255);
-  digitalWrite(motorTwoForward, HIGH);
-  digitalWrite(motorTwoBackwards, LOW);
-}
-
-else if (yDirection<0){
-  analogWrite(motorOnePwn, 255);
   digitalWrite(motorOneForward, LOW);
   digitalWrite(motorOneBackwards, HIGH);
   analogWrite(motorTwoPwn, 255);
   digitalWrite(motorTwoForward, LOW);
   digitalWrite(motorTwoBackwards, HIGH);
+}
+
+else if (yDirection<0){
+  analogWrite(motorOnePwn, 255);
+  digitalWrite(motorOneForward, HIGH);
+  digitalWrite(motorOneBackwards, LOW);
+  analogWrite(motorTwoPwn, 255);
+  digitalWrite(motorTwoForward, HIGH);
+  digitalWrite(motorTwoBackwards, LOW);
 
 }
 
@@ -73,12 +73,9 @@ else{
 }
 
 Serial.print(yDirection);
+Serial.println();
 
 }
-
-
-
-
 
 void setup() 
 {
