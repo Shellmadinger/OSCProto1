@@ -5,13 +5,13 @@
 //OLED setup
 U8G2_SH1106_128X64_NONAME_F_HW_I2C oled(U8G2_R0, /* reset=*/U8X8_PIN_NONE);
 // WiFi stuff change it to whatever matches your network
-const char* ssid = "Khan_2.4G";
-const char* pwd = "9053387336";
+const char* ssid = "Khan_Hotspot";
+const char* pwd = "Connection";
 
 
 // for ArduinoOSC
 ///IP address of your computer
-const char* sendIPaddress = "192.168.1.132";
+const char* sendIPaddress = "192.168.137.1";
 //this is message address that is used by unity 
 const char* arduinoMessageTag = "/arduino2";
 //port specified in the OSC in variable in Unity
@@ -35,6 +35,8 @@ const int motorOneBackwards = 4;
 const int motorTwoPwn = 5;
 const int motorTwoForward = 6;
 const int motorTwoBackwards = 7;
+const int LEDpin1 = 8;
+const int LEDpin2 = 9;
 
 ///function called when data is received from Unity
 void unityOSCdata(const OscMessage& unityMessage) 
@@ -51,6 +53,8 @@ if (yDirection>0){
   analogWrite(motorTwoPwn, 255);
   digitalWrite(motorTwoForward, LOW);
   digitalWrite(motorTwoBackwards, HIGH);
+  digitalWrite(LEDpin1, HIGH);
+  digitalWrite(LEDpin2, LOW);
 }
 
 else if (yDirection<0){
@@ -60,6 +64,8 @@ else if (yDirection<0){
   analogWrite(motorTwoPwn, 255);
   digitalWrite(motorTwoForward, HIGH);
   digitalWrite(motorTwoBackwards, LOW);
+  digitalWrite(LEDpin1, LOW);
+  digitalWrite(LEDpin2, HIGH);
 
 }
 
@@ -70,10 +76,12 @@ else{
   analogWrite(motorTwoPwn,255);
   digitalWrite(motorTwoForward, LOW);
   digitalWrite(motorTwoBackwards, LOW);
+  digitalWrite(LEDpin1, LOW);
+  digitalWrite(LEDpin2, LOW);
 }
 
 Serial.print(yDirection);
-Serial.println();
+//Serial.println();
 
 }
 
@@ -85,7 +93,8 @@ void setup()
   pinMode(motorTwoPwn, INPUT);
   pinMode(motorTwoForward, INPUT);
   pinMode(motorTwoBackwards, INPUT);
-
+  pinMode(LEDpin1, OUTPUT);
+  pinMode(LEDpin2, OUTPUT);
 //connect to WiFi
     WiFi.begin(ssid, pwd);
 
